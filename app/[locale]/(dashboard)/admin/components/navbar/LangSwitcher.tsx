@@ -11,7 +11,7 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import LanguageIcon from "@mui/icons-material/Language";
 import CheckIcon from "@mui/icons-material/Check";
-import { changeLanguage } from "@/i18n/languageUtils";
+import { changeLanguage } from "../../../../../../i18n/languageUtils";
 
 const languages = [
   { code: "en", label: "English", flag: "🇺🇸" },
