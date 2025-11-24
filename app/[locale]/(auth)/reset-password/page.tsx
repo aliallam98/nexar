@@ -6,10 +6,10 @@ import { Button } from "@/components/ui/button";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useI18n } from "@/hooks/i18next/client";
 import { useAuthSchemas } from "../../../../hooks/validations/useAuthSchemas";
 import { AuthCard } from "../_components/AuthCard";
 import { PasswordInput } from "@/components/ui/PasswordInput";
+import { useTranslation } from "react-i18next";
 
 export default function ResetPasswordPage() {
   const router = useRouter();
@@ -17,7 +17,7 @@ export default function ResetPasswordPage() {
   const token = searchParams.get("token");
   const email = searchParams.get("email");
 
-  const t = useI18n();
+  const { t } = useTranslation();
   const { resetPasswordSchema } = useAuthSchemas();
 
   const loading = false;

@@ -5,7 +5,7 @@ import type React from "react";
 import { useRef, useState, useEffect } from "react";
 import { Input } from "@/components/ui/input";
 import { cn } from "../../lib/utils";
-import { useCurrentLocale } from "@/hooks/i18next/client";
+import { useTranslation } from "react-i18next";
 
 interface OTPInputProps {
   length?: number;
@@ -22,8 +22,8 @@ export function OTPInput({
 }: OTPInputProps) {
   const [otp, setOtp] = useState<string[]>(Array(length).fill(""));
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
-  const locale = useCurrentLocale();
-  const isRTL = locale === "ar";
+  const { i18n } = useTranslation();
+  const isRTL = i18n.language === "ar";
 
   useEffect(() => {
     // Pre-populate refs array
