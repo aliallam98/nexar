@@ -1,0 +1,20 @@
+mutation CreateExpense($input: CreateExpenseInput!) {
+  createExpense(input: $input) {
+    id
+    title
+    description
+    amount
+    receiptUrl
+    expenseDate
+    status
+    category {
+      id
+      name
+    }
+    createdBy {
+      id
+      name
+    }
+    createdAt
+  }
+}

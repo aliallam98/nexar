@@ -1,0 +1,29 @@
+query Categories($pagination: PaginationInput) {
+  categories(pagination: $pagination) {
+    data {
+      id
+      name
+      slug
+      description
+      image
+      isActive
+      parentId
+      children {
+        id
+        name
+        slug
+        image
+      }
+      createdAt
+      updatedAt
+    }
+    paginationDetails {
+      currentPage
+      perPage
+      totalPages
+      totalItems
+      hasNextPage
+      hasPreviousPage
+    }
+  }
+}

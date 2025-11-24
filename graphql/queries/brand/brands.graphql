@@ -1,0 +1,22 @@
+query Brands($pagination: PaginationInput) {
+  brands(pagination: $pagination) {
+    data {
+      id
+      name
+      slug
+      image
+      description
+      isActive
+      createdAt
+      updatedAt
+    }
+    paginationDetails {
+      currentPage
+      perPage
+      totalPages
+      totalItems
+      hasNextPage
+      hasPreviousPage
+    }
+  }
+}

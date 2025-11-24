@@ -1,0 +1,14 @@
+query Addresses {
+  addresses {
+    id
+    label
+    fullName
+    phone
+    country
+    city
+    street
+    postalCode
+    isDefault
+    createdAt
+  }
+}

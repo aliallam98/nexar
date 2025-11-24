@@ -1,0 +1,12 @@
+query ListCategoriesDropdown {
+  categoriesDropdown {
+    id
+    name
+  }
+}
+query ListBrandsDropdown {
+  brandsDropdown {
+    id
+    name
+  }
+}

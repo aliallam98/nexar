@@ -1,0 +1,23 @@
+query Users($pagination: PaginationInput, $role: Role) {
+  users(pagination: $pagination, role: $role) {
+    data {
+      id
+      email
+      name
+      phone
+      image
+      role
+      isActive
+      createdAt
+      updatedAt
+    }
+    paginationDetails {
+      currentPage
+      perPage
+      totalPages
+      totalItems
+      hasNextPage
+      hasPreviousPage
+    }
+  }
+}

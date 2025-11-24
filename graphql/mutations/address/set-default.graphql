@@ -1,0 +1,14 @@
+mutation SetDefaultAddress($id: ID!) {
+  setDefaultAddress(id: $id) {
+    id
+    label
+    fullName
+    phone
+    country
+    city
+    street
+    postalCode
+    isDefault
+    createdAt
+  }
+}

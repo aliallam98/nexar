@@ -1,0 +1,34 @@
+mutation CreateReview(
+  $productId: ID!
+  $rating: Int!
+  $title: String
+  $comment: String
+  $images: [String!]
+) {
+  createReview(
+    productId: $productId
+    rating: $rating
+    title: $title
+    comment: $comment
+    images: $images
+  ) {
+    id
+    user {
+      id
+      name
+      email
+    }
+    product {
+      id
+      name
+      slug
+    }
+    rating
+    title
+    comment
+    images
+    isVerifiedPurchase
+    isApproved
+    createdAt
+  }
+}

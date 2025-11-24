@@ -1,0 +1,30 @@
+mutation CreateAddress(
+  $label: String
+  $fullName: String!
+  $phone: String!
+  $country: String!
+  $city: String!
+  $street: String!
+  $postalCode: String
+) {
+  createAddress(
+    label: $label
+    fullName: $fullName
+    phone: $phone
+    country: $country
+    city: $city
+    street: $street
+    postalCode: $postalCode
+  ) {
+    id
+    label
+    fullName
+    phone
+    country
+    city
+    street
+    postalCode
+    isDefault
+    createdAt
+  }
+}

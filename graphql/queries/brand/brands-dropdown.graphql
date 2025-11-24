@@ -1,0 +1,12 @@
+query BrandsDropdown {
+  brandsDropdown {
+    id
+    name
+    slug
+    image
+    description
+    isActive
+    createdAt
+    updatedAt
+  }
+}

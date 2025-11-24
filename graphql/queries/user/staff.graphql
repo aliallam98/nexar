@@ -1,0 +1,23 @@
+query Staff($pagination: PaginationInput) {
+  staff(pagination: $pagination) {
+    data {
+      id
+      email
+      name
+      phone
+      image
+      role
+      isActive
+      createdAt
+      updatedAt
+    }
+    paginationDetails {
+      currentPage
+      perPage
+      totalPages
+      totalItems
+      hasNextPage
+      hasPreviousPage
+    }
+  }
+}

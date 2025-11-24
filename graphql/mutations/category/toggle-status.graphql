@@ -1,0 +1,16 @@
+# mutation ToggleCategoryStatus($id: ID!) {
+#   toggleCategoryStatus(id: $id) {
+#     id
+#     name
+#     slug
+#     image
+#     description
+#     isActive
+#     children {
+#       id
+#       name
+#       slug
+#     }
+#     createdAt
+#   }
+# }

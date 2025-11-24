@@ -1,0 +1,16 @@
+mutation ApproveExpenseEdit($id: ID!) {
+  approveExpenseEdit(id: $id) {
+    id
+    title
+    description
+    amount
+    receiptUrl
+    expenseDate
+    status
+    category {
+      id
+      name
+    }
+    updatedAt
+  }
+}

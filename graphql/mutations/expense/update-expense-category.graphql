@@ -1,0 +1,9 @@
+mutation UpdateExpenseCategory($id: ID!, $input: UpdateExpenseCategoryInput!) {
+  updateExpenseCategory(id: $id, input: $input) {
+    id
+    name
+    description
+    isActive
+    updatedAt
+  }
+}

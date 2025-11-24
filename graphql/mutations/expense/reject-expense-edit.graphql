@@ -1,0 +1,8 @@
+mutation RejectExpenseEdit($id: ID!, $rejectionReason: String) {
+  rejectExpenseEdit(id: $id, rejectionReason: $rejectionReason) {
+    id
+    title
+    status
+    updatedAt
+  }
+}

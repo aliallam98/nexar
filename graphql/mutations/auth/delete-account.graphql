@@ -1,0 +1,6 @@
+mutation DeleteAccount {
+  deleteAccount {
+    success
+    message
+  }
+}

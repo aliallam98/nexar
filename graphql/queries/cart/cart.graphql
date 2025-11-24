@@ -1,0 +1,20 @@
+query Cart {
+  cart {
+    items {
+      id
+      product {
+        id
+        name
+        slug
+        price
+        images
+        stock
+      }
+      quantity
+      price
+      total
+    }
+    subtotal
+    itemCount
+  }
+}

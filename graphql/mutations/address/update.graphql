@@ -1,0 +1,30 @@
+mutation UpdateAddress(
+  $id: ID!
+  $label: String
+  $fullName: String
+  $phone: String
+  $country: String
+  $city: String
+  $street: String
+) {
+  updateAddress(
+    id: $id
+    label: $label
+    fullName: $fullName
+    phone: $phone
+    country: $country
+    city: $city
+    street: $street
+  ) {
+    id
+    label
+    fullName
+    phone
+    country
+    city
+    street
+    postalCode
+    isDefault
+    createdAt
+  }
+}

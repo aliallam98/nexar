@@ -1,0 +1,522 @@
+type Query {
+  health: String!
+  me: User
+  product(id: ID, slug: String): Product
+  products(pagination: PaginationInput, categoryId: String, brandId: String): PaginatedProducts!
+  featuredProducts(limit: Int): [Product!]!
+  productsByCategory(categoryId: String!, pagination: PaginationInput): PaginatedProducts!
+  productsByBrand(brandId: String!, pagination: PaginationInput): PaginatedProducts!
+  searchProducts(query: String!, pagination: PaginationInput): PaginatedProducts!
+  relatedProducts(productId: ID!, limit: Int): [Product!]!
+  productVariants(productId: ID!): [ProductVariant!]!
+  category(id: ID, slug: String): Category
+  categories(pagination: PaginationInput): CategoriesResponse!
+  categoriesDropdown: [Category!]!
+  brand(id: ID, slug: String): Brand
+  brands(pagination: PaginationInput): BrandsResponse!
+  brandsDropdown: [Brand!]!
+  cart: Cart!
+  cartItemCount: Int!
+  order(id: ID, orderNumber: String): Order
+  orders(page: Int, perPage: Int): [Order!]!
+  ordersByStatus(status: OrderStatus!, page: Int, perPage: Int): [Order!]!
+  userOrderHistory(page: Int, perPage: Int): [Order!]!
+  wishlist: [Product!]!
+  wishlistItemCount: Int!
+  coupon(code: String!): Coupon
+  validateCoupon(code: String!, orderTotal: Float!): ValidateCouponPayload!
+  coupons(page: Int, perPage: Int): [Coupon!]!
+  review(id: ID!): Review
+  productReviews(productId: ID!, page: Int, perPage: Int): [Review!]!
+  reviews(page: Int, perPage: Int): [Review!]!
+  address(id: ID!): Address
+  addresses: [Address!]!
+  transactions(userId: ID!): [Transaction!]!
+  transaction(id: ID!): Transaction
+  user(id: ID!): User
+  users(pagination: PaginationInput, role: Role): PaginatedUsers!
+  customers(pagination: PaginationInput): PaginatedUsers!
+  staff(pagination: PaginationInput): PaginatedUsers!
+  expenseCategory(id: ID!): ExpenseCategory
+  expenseCategories(pagination: PaginationInput): PaginatedExpenseCategories!
+  expenseCategoriesDropdown: [ExpenseCategory!]!
+  expense(id: ID!): Expense
+  expenses(pagination: PaginationInput, categoryId: String, createdById: String, startDate: String, endDate: String, status: ExpenseStatus): PaginatedExpenses!
+  expenseEditRequest(id: ID!): ExpenseEditRequest
+  expenseEditRequests(pagination: PaginationInput, requestedById: String, status: EditRequestStatus): PaginatedExpenseEditRequests!
+  pendingExpenseEditRequests: [ExpenseEditRequest!]!
+}
+
+type Mutation {
+  _empty: String
+  register(email: String!, password: String!, name: String, gender: String): AuthPayload!
+  login(email: String!, password: String!): AuthPayload!
+  logout: LogoutPayload!
+  updateProfile(name: String, phone: String, image: String): User!
+  changePassword(oldPassword: String!, newPassword: String!): User!
+  deleteAccount: LogoutPayload!
+  createProduct(input: CreateProductInput!): Product!
+  updateProduct(id: ID!, input: UpdateProductInput!): Product!
+  deleteProduct(id: ID!): Boolean!
+  toggleProductStatus(id: ID!): Product!
+  createCategory(input: CreateCategoryInput!): Category!
+  updateCategory(id: ID!, input: UpdateCategoryInput!): Category!
+  deleteCategory(id: ID!): Boolean!
+  toggleCategoryStatus(id: ID!): Category!
+  createBrand(input: CreateBrandInput!): Brand!
+  updateBrand(id: ID!, input: UpdateBrandInput!): Brand!
+  deleteBrand(id: ID!): Boolean!
+  toggleBrandStatus(id: ID!): Brand!
+  addToCart(productId: ID!, quantity: Int!): Cart!
+  updateCartItem(productId: ID!, quantity: Int!): Cart!
+  removeFromCart(productId: ID!): Cart!
+  clearCart: Boolean!
+  createOrder(items: [CreateOrderItemInput!]!, shippingName: String!, shippingPhone: String!, shippingCountry: String!, shippingCity: String!, shippingStreet: String!, shippingPostal: String, couponCode: String, customerNotes: String): Order!
+  cancelOrder(id: ID!): Order!
+  updateOrderStatus(id: ID!, status: OrderStatus!): Order!
+  addToWishlist(productId: ID!): Product!
+  removeFromWishlist(productId: ID!): Boolean!
+  moveToCart(productId: ID!): Cart!
+  createCoupon(code: String!, description: String, discountType: DiscountType!, discountValue: Float!, minPurchase: Float, maxDiscount: Float, maxUseCount: Int, maxUsePerUser: Int, startsAt: String, expiresAt: String): Coupon!
+  updateCoupon(id: ID!, code: String, discountValue: Float, expiresAt: String): Coupon!
+  deleteCoupon(id: ID!): Boolean!
+  toggleCouponStatus(id: ID!): Coupon!
+  applyCoupon(couponCode: String!): ValidateCouponPayload!
+  createReview(productId: ID!, rating: Int!, title: String, comment: String, images: [String!]): Review!
+  updateReview(id: ID!, rating: Int, comment: String, images: [String!]): Review!
+  deleteReview(id: ID!): Boolean!
+  approveReview(id: ID!, approved: Boolean!): Review!
+  createAddress(label: String, fullName: String!, phone: String!, country: String!, city: String!, street: String!, postalCode: String): Address!
+  updateAddress(id: ID!, label: String, fullName: String, phone: String, country: String, city: String, street: String): Address!
+  deleteAddress(id: ID!): Boolean!
+  setDefaultAddress(id: ID!): Address!
+  createTransaction(input: CreateTransactionInput!): Transaction
+  createUser(input: CreateUserInput!): User!
+  updateUser(id: ID!, input: UpdateUserInput!): User!
+  deleteUser(id: ID!): Boolean!
+  toggleUserStatus(id: ID!): User!
+  createExpenseCategory(input: CreateExpenseCategoryInput!): ExpenseCategory!
+  updateExpenseCategory(id: ID!, input: UpdateExpenseCategoryInput!): ExpenseCategory!
+  deleteExpenseCategory(id: ID!): Boolean!
+  toggleExpenseCategoryStatus(id: ID!): ExpenseCategory!
+  createExpense(input: CreateExpenseInput!): Expense!
+  updateExpense(id: ID!, input: UpdateExpenseInput!): Expense!
+  deleteExpense(id: ID!): Boolean!
+  approveExpenseEdit(id: ID!): Expense!
+  rejectExpenseEdit(id: ID!, rejectionReason: String): Expense!
+}
+
+scalar JSON
+
+enum Role {
+  CUSTOMER
+  ADMIN
+}
+
+enum OrderStatus {
+  PENDING
+  PROCESSING
+  SHIPPED
+  DELIVERED
+  CANCELLED
+  REFUNDED
+}
+
+enum DiscountType {
+  PERCENTAGE
+  FIXED
+}
+
+input PaginationInput {
+  page: Int
+  perPage: Int
+}
+
+type PaginationDetails {
+  currentPage: Int!
+  perPage: Int!
+  totalPages: Int!
+  totalItems: Int!
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+}
+
+type AuthPayload {
+  token: String!
+  user: User!
+}
+
+type LogoutPayload {
+  success: Boolean!
+  message: String!
+}
+
+type Product {
+  id: ID!
+  name: String!
+  slug: String!
+  description: String
+  price: Float!
+  comparePrice: Float
+  stock: Int!
+  sku: String
+  images: [String!]!
+  weight: Float
+  dimensions: String
+  isFeatured: Boolean!
+  isActive: Boolean!
+  metaTitle: String
+  metaDescription: String
+  category: Category!
+  brand: Brand
+  variants: [ProductVariant!]!
+  reviews: [Review!]!
+  createdAt: String!
+  updatedAt: String!
+}
+
+type ProductVariant {
+  id: ID!
+  name: String!
+  sku: String
+  price: Float
+  stock: Int!
+  attributes: JSON!
+  isActive: Boolean!
+}
+
+type Category {
+  id: ID!
+  name: String!
+  slug: String!
+  image: String
+  description: String
+  isActive: Boolean!
+  parentId: String
+  children: [Category!]!
+  createdAt: String!
+  updatedAt: String!
+}
+
+type Brand {
+  id: ID!
+  name: String!
+  slug: String!
+  image: String
+  description: String
+  isActive: Boolean!
+  createdAt: String!
+  updatedAt: String!
+}
+
+type PaginatedProducts {
+  data: [Product!]!
+  paginationDetails: PaginationDetails!
+}
+
+type CategoriesResponse {
+  data: [Category!]!
+  paginationDetails: PaginationDetails!
+}
+
+type BrandsResponse {
+  data: [Brand!]!
+  paginationDetails: PaginationDetails!
+}
+
+input CreateProductInput {
+  name: String!
+  slug: String
+  description: String
+  price: Float!
+  comparePrice: Float
+  stock: Int!
+  sku: String
+  categoryId: String!
+  brandId: String
+  images: [String!]!
+  weight: Float
+  dimensions: String
+  isFeatured: Boolean
+  metaTitle: String
+  metaDescription: String
+}
+
+input UpdateProductInput {
+  name: String
+  slug: String
+  description: String
+  price: Float
+  comparePrice: Float
+  stock: Int
+  sku: String
+  categoryId: String
+  brandId: String
+  images: [String!]
+  weight: Float
+  dimensions: String
+  isFeatured: Boolean
+  metaTitle: String
+  metaDescription: String
+}
+
+input CreateCategoryInput {
+  name: String!
+  slug: String
+  description: String
+  image: String
+  parentId: String
+}
+
+input UpdateCategoryInput {
+  name: String
+  slug: String
+  description: String
+  image: String
+  parentId: String
+}
+
+input CreateBrandInput {
+  name: String!
+  slug: String
+  description: String
+  image: String
+}
+
+input UpdateBrandInput {
+  name: String
+  slug: String
+  description: String
+  image: String
+}
+
+type CartItem {
+  id: ID!
+  product: Product!
+  quantity: Int!
+  price: Float!
+  total: Float!
+}
+
+type Cart {
+  items: [CartItem!]!
+  subtotal: Float!
+  itemCount: Int!
+}
+
+type Order {
+  id: ID!
+  orderNumber: String!
+  status: OrderStatus!
+  subtotal: Float!
+  discount: Float!
+  shipping: Float!
+  tax: Float!
+  total: Float!
+  items: [OrderItem!]!
+  trackingNumber: String
+  carrier: String
+  shippedAt: String
+  deliveredAt: String
+  customerNotes: String
+  adminNotes: String
+  createdAt: String!
+}
+
+type OrderItem {
+  id: ID!
+  productName: String!
+  productImage: String
+  quantity: Int!
+  price: Float!
+  total: Float!
+}
+
+input CreateOrderItemInput {
+  productId: ID!
+  quantity: Int!
+}
+
+type Coupon {
+  id: ID!
+  code: String!
+  description: String
+  discountType: DiscountType!
+  discountValue: Float!
+  minPurchase: Float
+  maxDiscount: Float
+  isActive: Boolean!
+  expiresAt: String
+}
+
+type ValidateCouponPayload {
+  valid: Boolean!
+  coupon: Coupon
+  discount: Float
+  error: String
+}
+
+type Review {
+  id: ID!
+  user: User!
+  product: Product!
+  rating: Int!
+  title: String
+  comment: String
+  images: [String!]!
+  isVerifiedPurchase: Boolean!
+  isApproved: Boolean!
+  createdAt: String!
+}
+
+type Address {
+  id: ID!
+  label: String
+  fullName: String!
+  phone: String!
+  country: String!
+  city: String!
+  street: String!
+  postalCode: String
+  isDefault: Boolean!
+  createdAt: String!
+}
+
+type Transaction {
+  id: ID!
+  userId: ID!
+  amount: Float!
+  description: String!
+  createdAt: String!
+}
+
+input CreateTransactionInput {
+  amount: Float!
+  description: String!
+}
+
+type User {
+  id: ID!
+  email: String!
+  name: String
+  phone: String
+  image: String
+  role: Role!
+  isActive: Boolean!
+  createdAt: String!
+  updatedAt: String!
+}
+
+input CreateUserInput {
+  email: String!
+  password: String!
+  name: String
+  phone: String
+  image: String
+  role: Role!
+}
+
+input UpdateUserInput {
+  name: String
+  phone: String
+  image: String
+  isActive: Boolean
+}
+
+type PaginatedUsers {
+  data: [User!]!
+  paginationDetails: PaginationDetails!
+}
+
+enum ExpenseStatus {
+  APPROVED
+  PENDING_EDIT
+  REJECTED_EDIT
+}
+
+enum EditRequestStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+type ExpenseCategory {
+  id: ID!
+  name: String!
+  description: String
+  isActive: Boolean!
+  createdAt: String!
+  updatedAt: String!
+}
+
+type Expense {
+  id: ID!
+  title: String!
+  description: String
+  amount: Float!
+  receiptUrl: String
+  expenseDate: String!
+  category: ExpenseCategory!
+  createdBy: User!
+  status: ExpenseStatus!
+  editRequests: [ExpenseEditRequest!]!
+  createdAt: String!
+  updatedAt: String!
+}
+
+type ExpenseEditRequest {
+  id: ID!
+  expense: Expense!
+  requestedBy: User!
+  proposedChanges: JSON!
+  status: EditRequestStatus!
+  reviewedBy: User
+  reviewedAt: String
+  rejectionReason: String
+  createdAt: String!
+  updatedAt: String!
+}
+
+type PaginatedExpenses {
+  data: [Expense!]!
+  paginationDetails: PaginationDetails!
+}
+
+type PaginatedExpenseCategories {
+  data: [ExpenseCategory!]!
+  paginationDetails: PaginationDetails!
+}
+
+type PaginatedExpenseEditRequests {
+  data: [ExpenseEditRequest!]!
+  paginationDetails: PaginationDetails!
+}
+
+input CreateExpenseCategoryInput {
+  name: String!
+  description: String
+}
+
+input UpdateExpenseCategoryInput {
+  name: String
+  description: String
+  isActive: Boolean
+}
+
+input CreateExpenseInput {
+  title: String!
+  description: String
+  amount: Float!
+  receiptUrl: String
+  expenseDate: String!
+  categoryId: String!
+}
+
+input UpdateExpenseInput {
+  title: String
+  description: String
+  amount: Float
+  receiptUrl: String
+  expenseDate: String
+  categoryId: String
+}

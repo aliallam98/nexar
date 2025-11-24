@@ -1,0 +1,12 @@
+query Brand($id: ID, $slug: String) {
+  brand(id: $id, slug: $slug) {
+    id
+    name
+    slug
+    image
+    description
+    isActive
+    createdAt
+    updatedAt
+  }
+}

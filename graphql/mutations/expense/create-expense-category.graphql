@@ -1,0 +1,9 @@
+mutation CreateExpenseCategory($input: CreateExpenseCategoryInput!) {
+  createExpenseCategory(input: $input) {
+    id
+    name
+    description
+    isActive
+    createdAt
+  }
+}

@@ -1,0 +1,27 @@
+mutation UpdateReview(
+  $id: ID!
+  $rating: Int
+  $comment: String
+  $images: [String!]
+) {
+  updateReview(id: $id, rating: $rating, comment: $comment, images: $images) {
+    id
+    user {
+      id
+      name
+      email
+    }
+    product {
+      id
+      name
+      slug
+    }
+    rating
+    title
+    comment
+    images
+    isVerifiedPurchase
+    isApproved
+    createdAt
+  }
+}

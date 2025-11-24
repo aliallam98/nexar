@@ -1,0 +1,22 @@
+mutation ApproveReview($id: ID!, $approved: Boolean!) {
+  approveReview(id: $id, approved: $approved) {
+    id
+    user {
+      id
+      name
+      email
+    }
+    product {
+      id
+      name
+      slug
+    }
+    rating
+    title
+    comment
+    images
+    isVerifiedPurchase
+    isApproved
+    createdAt
+  }
+}
