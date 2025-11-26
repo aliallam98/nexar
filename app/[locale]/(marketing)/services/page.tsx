@@ -3,6 +3,9 @@ import ServiceHero from "@/components/marketing/services/ServiceHero";
 import ServiceFeatures from "@/components/marketing/services/ServiceFeatures";
 import OrderSectionDemo from "@/components/marketing/services/OrderSectionDemo";
 import ServiceCTA from "@/components/marketing/services/ServiceCTA";
+import ServiceCategoriesGrid from "@/components/marketing/services/ServiceCategoriesGrid";
+import ServiceProcessSection from "@/components/marketing/services/ServiceProcessSection";
+import IntegrationPartnersSection from "@/components/marketing/services/IntegrationPartnersSection";
 
 export const metadata: Metadata = {
   title: "Services - NeXar E-Commerce Platform | Award-Winning Solutions",
@@ -17,9 +20,12 @@ export const metadata: Metadata = {
 
 export default function ServicesPage() {
   return (
-    <main className="min-h-screen bg-slate-950">
+    <main className="min-h-screen bg-black">
       <ServiceHero />
+      <ServiceCategoriesGrid />
+      <ServiceProcessSection />
       <ServiceFeatures />
+      <IntegrationPartnersSection />
       <OrderSectionDemo />
       <ServiceCTA />
     </main>

@@ -60,57 +60,96 @@ export const ContactForm = ({ className }: ContactFormProps) => {
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     setIsSubmitting(true);
-    // Simulate API call
-    await new Promise((resolve) => setTimeout(resolve, 2000));
     
-    console.log(values);
-    toast.success("Message sent successfully!", {
-      description: "We'll get back to you as soon as possible.",
-    });
-    
-    form.reset();
-    setIsSubmitting(false);
+    try {
+      // TODO: Replace with actual GraphQL mutation after migration
+      // import { useMutation } from "@apollo/client";
+      // import { CREATE_CONTACT_REQUEST } from "@/graphql/operations/contactRequest.operations";
+      
+      // For now, just log (will be replaced after DB migration)
+      console.log("Contact Request:", values);
+      
+      toast.success("Message sent successfully!", {
+        description: "We'll get back to you as soon as possible.",
+      });
+      
+      form.reset();
+    } catch (error) {
+      console.error("Error submitting contact request:", error);
+      toast.error("Failed to send message", {
+        description: "Please try again later or contact us directly.",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   }
 
   return (
-    <div className={cn("w-full max-w-md mx-auto", className)}>
-      <div className="backdrop-blur-xl bg-background/30 border border-white/10 rounded-2xl p-6 md:p-8 shadow-2xl">
-        <div className="mb-6 text-center">
-          <h2 className="text-2xl font-bold tracking-tight">Get in Touch</h2>
-          <p className="text-muted-foreground text-sm mt-2">
-            Fill out the form below and we'll answer your query.
+    <div className={cn("w-full max-w-2xl mx-auto", className)}>
+      <div className="relative overflow-hidden backdrop-blur-xl bg-white/5 border border-white/10 rounded-3xl p-8 md:p-12 shadow-2xl">
+        {/* Decorative Gradient */}
+        <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500" />
+        
+        <div className="mb-10">
+          <h2 className="text-3xl font-bold tracking-tight text-white mb-2">Send us a message</h2>
+          <p className="text-gray-400">
+            Fill out the form below and we'll get back to you within 24 hours.
           </p>
         </div>
 
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-            <FormField
-              control={form.control}
-              name="name"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Name</FormLabel>
-                  <FormControl>
-                    <Input placeholder="John Doe" {...field} className="bg-background/50" />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+            <div className="grid md:grid-cols-2 gap-6">
+              <FormField
+                control={form.control}
+                name="name"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="text-gray-300">Name</FormLabel>
+                    <FormControl>
+                      <Input 
+                        placeholder="John Doe" 
+                        {...field} 
+                        className="bg-white/5 border-white/10 text-white placeholder:text-gray-600 focus:border-purple-500/50 focus:ring-purple-500/20 h-12 transition-all" 
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="phone"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="text-gray-300">Phone</FormLabel>
+                    <FormControl>
+                      <Input 
+                        placeholder="+1 (555) 000-0000" 
+                        {...field} 
+                        className="bg-white/5 border-white/10 text-white placeholder:text-gray-600 focus:border-purple-500/50 focus:ring-purple-500/20 h-12 transition-all" 
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
 
             <FormField
               control={form.control}
               name="category"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Category</FormLabel>
+                  <FormLabel className="text-gray-300">Category</FormLabel>
                   <Select onValueChange={field.onChange} defaultValue={field.value}>
                     <FormControl>
-                      <SelectTrigger className="bg-background/50">
+                      <SelectTrigger className="bg-white/5 border-white/10 text-white h-12 focus:border-purple-500/50 focus:ring-purple-500/20 transition-all" suppressHydrationWarning>
                         <SelectValue placeholder="Select a topic" />
                       </SelectTrigger>
                     </FormControl>
-                    <SelectContent>
+                    <SelectContent className="bg-slate-900 border-white/10 text-white">
                       <SelectItem value="general">General Inquiry</SelectItem>
                       <SelectItem value="support">Support</SelectItem>
                       <SelectItem value="partnership">Partnership</SelectItem>
@@ -124,28 +163,14 @@ export const ContactForm = ({ className }: ContactFormProps) => {
 
             <FormField
               control={form.control}
-              name="phone"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Phone</FormLabel>
-                  <FormControl>
-                    <Input placeholder="+1 (555) 000-0000" {...field} className="bg-background/50" />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
-            <FormField
-              control={form.control}
               name="message"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Message</FormLabel>
+                  <FormLabel className="text-gray-300">Message</FormLabel>
                   <FormControl>
                     <Textarea
                       placeholder="Tell us more about your inquiry..."
-                      className="resize-none min-h-[120px] bg-background/50"
+                      className="resize-none min-h-[160px] bg-white/5 border-white/10 text-white placeholder:text-gray-600 focus:border-purple-500/50 focus:ring-purple-500/20 transition-all"
                       {...field}
                     />
                   </FormControl>
@@ -156,18 +181,18 @@ export const ContactForm = ({ className }: ContactFormProps) => {
 
             <Button
               type="submit"
-              className="w-full group"
+              className="w-full h-12 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 text-white font-semibold rounded-xl transition-all duration-300 hover:scale-[1.02] hover:shadow-lg hover:shadow-purple-500/25"
               disabled={isSubmitting}
             >
               {isSubmitting ? (
                 <>
-                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  <Loader2 className="mr-2 h-5 w-5 animate-spin" />
                   Sending...
                 </>
               ) : (
                 <>
                   Send Message
-                  <Send className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                  <Send className="ml-2 h-5 w-5" />
                 </>
               )}
             </Button>

@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import { WorldWinnerAnimation } from "@/components/marketing/WorldWinnerAnimation";
+import ContactHero from "@/components/marketing/contact/ContactHero";
 import { ContactForm } from "@/components/marketing/ContactForm";
 
 export const metadata: Metadata = {
@@ -9,38 +9,17 @@ export const metadata: Metadata = {
 
 export default function ContactPage() {
   return (
-    <section className="min-h-screen bg-background">
-  
-      {/* Hero Section */}
-      <section className="relative overflow-hidden">
-        <div className="container relative z-10">
-          <WorldWinnerAnimation />
-          
-          <div className="text-center max-w-2xl mx-auto mb-4">
-            <h2 className="text-3xl font-bold tracking-tight mb-4">
-              We'd love to hear from you
-            </h2>
-            <p className="text-muted-foreground text-lg">
-              Whether you have a question about features, pricing, need a demo, or anything else, our team is ready to answer all your questions.
-            </p>
-          </div>
-          
+    <main className="min-h-screen bg-black">
+      <ContactHero />
+      
+      <section className="pb-32 px-6 relative">
+        {/* Background Glow */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-3xl h-full max-h-[800px] bg-gradient-to-b from-purple-500/10 to-blue-500/10 rounded-full blur-[120px] pointer-events-none" />
+        
+        <div className="relative z-10">
+          <ContactForm />
         </div>
       </section>
-
-      {/* Form Section */}
-      <section className="pb-24 relative">
-        <div className="container px-4 mx-auto">
-          <div className="relative z-10">
-            <ContactForm />
-          </div>
-          
-          {/* Decorative elements */}
-          <div className="absolute top-1/2 left-0 w-64 h-64 bg-purple-500/10 blur-[80px] rounded-full pointer-events-none -translate-y-1/2" />
-          <div className="absolute bottom-0 right-0 w-96 h-96 bg-blue-500/10 blur-[100px] rounded-full pointer-events-none translate-y-1/4" />
-        </div>
-      </section>
-
-    </section>
+    </main>
   );
 }

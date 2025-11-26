@@ -6,14 +6,16 @@ import { JSX } from "react";
 import DatePickerComponent, {
   IProps as DatePickerProps,
 } from "../components/form/date-pickers/DatePickerComponent";
+import SelectInputComponent from "../components/form/SelectInputComponent";
 
-type FilterType = "search" | "dateFrom" | "dateTo" | "status";
+type FilterType = "search" | "dateFrom" | "dateTo" | "status" | "select";
 
 type FilterConfigItem = {
   type: FilterType;
   name: string;
   label: string;
   placeholder?: string;
+  options?: { label: string; value: string | number }[];
   props?: any;
 };
 
@@ -75,6 +77,17 @@ export const useFilters = <T extends FieldValues = FieldValues>(
         name={config.name as any}
         label={config.label}
         placeholder={config.placeholder}
+        {...config.props}
+      />
+    ),
+
+    select: (config) => (
+      <SelectInputComponent
+        key={config.name}
+        control={control}
+        name={config.name as any}
+        label={config.label}
+        options={config.options || []}
         {...config.props}
       />
     ),

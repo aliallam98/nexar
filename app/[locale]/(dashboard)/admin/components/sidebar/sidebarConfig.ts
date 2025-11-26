@@ -25,48 +25,19 @@ export const sidebarConfig: SidebarLink[] = [
     icon: DashboardIcon,
   },
   {
-    label: "catalog",
-    icon: CategoryIcon,
-    children: [
-      { label: "category", path: "/admin/categories", icon: CategoryIcon },
-      { label: "brand", path: "/admin/brands", icon: BrandingWatermarkIcon },
-    ],
+    label: "contactRequests",
+    path: "/admin/contact-requests",
+    icon: GroupIcon, // Using GroupIcon temporarily, ideally MessageIcon
   },
   {
-    label: "products",
-    icon: CategoryIcon,
-    children: [
-      { label: "productsList", path: "products" },
-      {
-        label: "createProduct",
-        path: "products/create",
-      },
-    ],
-  },
-  {
-    label: "financialOperations",
+    label: "expenses",
+    path: "/admin/expenses",
     icon: MonetizationOnOutlinedIcon,
-    children: [
-      { label: "collections", path: "collections" },
-      { label: "payments", path: "payments" },
-      { label: "invoices", path: "invoices" },
-    ],
-  },
-
-  {
-    label: "branches",
-    path: "/branches",
-    icon: Store,
   },
   {
-    label: "coupons",
-    path: "/coupons",
-    icon: DiscountIcon,
-  },
-  {
-    label: "carts",
-    path: "/carts",
-    icon: ShoppingCartIcon,
+    label: "users", // Admin users
+    path: "/admin/users",
+    icon: GroupIcon,
   },
   {
     label: "securitySettings",
@@ -74,22 +45,6 @@ export const sidebarConfig: SidebarLink[] = [
     children: [
       { label: "roles", path: "roles" },
       { label: "permissions", path: "permissions" },
-    ],
-  },
-  {
-    label: "users",
-    icon: GroupIcon,
-    children: [
-      { label: "usersList", path: "users" },
-      { label: "createUser", path: "/users/create" },
-    ],
-  },
-  {
-    label: "employees",
-    icon: GroupIcon,
-    children: [
-      { label: "employeesList", path: "employees" },
-      { label: "employeesCreate", path: "/employees/create" },
     ],
   },
 ];

@@ -9,7 +9,7 @@ export const marketingNavLinks = [
     label: "home",
   },
   {
-    href: "/About",
+    href: "/about",
     label: "about",
   },
   {
