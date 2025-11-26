@@ -17,11 +17,11 @@ export const marketingNavLinks = [
     label: "Services",
   },
   {
-    href: "Contact",
+    href: "/contact",
     label: "contact",
   },
   {
-    href: "blog",
+    href: "/blog",
     label: "Blog",
   },
 ];
